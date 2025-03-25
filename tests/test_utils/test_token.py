@@ -12,6 +12,7 @@ INVALID_TOKENS = [
     ":AABBCCDDEEFFaabbccddeeff123456789",  # there is no left part
     "123456789:",  # there is no right part
     "ABC AABBCCDDEEFFaabbccddeeff123456789",  # there is no ':' separator
+    "123456789:AABBCCDDEEFF:aabbccddeeff-1234567890",  # separator ":" more than one
     None,  # is None
     12345678,  # is digit
     (42, "TEST"),  # is tuple

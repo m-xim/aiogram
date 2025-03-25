@@ -22,6 +22,9 @@ def validate_token(token: str) -> bool:
         message = "Token is invalid! It can't contains spaces."
         raise TokenValidationError(message)
 
+    if token.count(":") != 1:
+        raise TokenValidationError("Token is invalid! It must contain a single separator ':'.")
+
     left, sep, right = token.partition(":")
     if (not sep) or (not left.isdigit()) or (not right):
         raise TokenValidationError("Token is invalid!")
@@ -38,5 +41,5 @@ def extract_bot_id(token: str) -> int:
     :return:
     """
     validate_token(token)
-    raw_bot_id, *_ = token.split(":")
+    raw_bot_id, _ = token.split(":")
     return int(raw_bot_id)
