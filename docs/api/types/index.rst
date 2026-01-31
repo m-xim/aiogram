@@ -11,6 +11,7 @@ Available types
 .. toctree::
     :maxdepth: 1
 
+    accepted_gift_types
     animation
     audio
     background_fill
@@ -35,6 +36,7 @@ Available types
     bot_description
     bot_name
     bot_short_description
+    business_bot_rights
     business_connection
     business_intro
     business_location
@@ -68,9 +70,15 @@ Available types
     chat_permissions
     chat_photo
     chat_shared
+    checklist
+    checklist_task
+    checklist_tasks_added
+    checklist_tasks_done
     contact
     copy_text_button
     dice
+    direct_message_price_changed
+    direct_messages_topic
     document
     external_reply_info
     file
@@ -82,6 +90,10 @@ Available types
     forum_topic_reopened
     general_forum_topic_hidden
     general_forum_topic_unhidden
+    gift
+    gift_background
+    gift_info
+    gifts
     giveaway
     giveaway_completed
     giveaway_created
@@ -89,6 +101,8 @@ Available types
     inaccessible_message
     inline_keyboard_button
     inline_keyboard_markup
+    input_checklist
+    input_checklist_task
     input_file
     input_media
     input_media_animation
@@ -100,6 +114,12 @@ Available types
     input_paid_media_photo
     input_paid_media_video
     input_poll_option
+    input_profile_photo
+    input_profile_photo_animated
+    input_profile_photo_static
+    input_story_content
+    input_story_content_photo
+    input_story_content_video
     keyboard_button
     keyboard_button_poll_type
     keyboard_button_request_chat
@@ -107,6 +127,7 @@ Available types
     keyboard_button_request_users
     link_preview_options
     location
+    location_address
     login_url
     maybe_inaccessible_message
     menu_button
@@ -124,11 +145,16 @@ Available types
     message_origin_user
     message_reaction_count_updated
     message_reaction_updated
+    owned_gift
+    owned_gift_regular
+    owned_gift_unique
+    owned_gifts
     paid_media
     paid_media_info
     paid_media_photo
     paid_media_preview
     paid_media_video
+    paid_message_price_changed
     photo_size
     poll
     poll_answer
@@ -144,12 +170,37 @@ Available types
     reply_parameters
     response_parameters
     shared_user
+    star_amount
     story
+    story_area
+    story_area_position
+    story_area_type
+    story_area_type_link
+    story_area_type_location
+    story_area_type_suggested_reaction
+    story_area_type_unique_gift
+    story_area_type_weather
+    suggested_post_approval_failed
+    suggested_post_approved
+    suggested_post_declined
+    suggested_post_info
+    suggested_post_paid
+    suggested_post_parameters
+    suggested_post_price
+    suggested_post_refunded
     switch_inline_query_chosen_chat
     text_quote
+    unique_gift
+    unique_gift_backdrop
+    unique_gift_backdrop_colors
+    unique_gift_colors
+    unique_gift_info
+    unique_gift_model
+    unique_gift_symbol
     user
     user_chat_boosts
     user_profile_photos
+    user_rating
     user_shared
     users_shared
     venue
@@ -241,8 +292,6 @@ Stickers
 .. toctree::
     :maxdepth: 1
 
-    gift
-    gifts
     input_sticker
     mask_position
     sticker

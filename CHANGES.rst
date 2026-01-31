@@ -16,6 +16,452 @@ Changelog
 
 .. towncrier release notes start
 
+3.24.0 (2026-01-02)
+====================
+
+Features
+--------
+
+- Added full support for Telegram Bot API 9.3
+
+  **Topics in Private Chats**
+
+  Bot API 9.3 introduces forum topics functionality for private chats:
+
+  - Added new ``sendMessageDraft`` method for streaming partial messages while being generated (requires forum topic mode enabled)
+  - Added ``has_topics_enabled`` field to the ``User`` class to determine if forum topic mode is enabled in private chats
+  - Added ``message_thread_id`` and ``is_topic_message`` fields to the ``Message`` class for private chat topic support
+  - Added ``message_thread_id`` parameter support to messaging methods: ``sendMessage``, ``sendPhoto``, ``sendVideo``, ``sendAnimation``, ``sendAudio``, ``sendDocument``, ``sendPaidMedia``, ``sendSticker``, ``sendVideoNote``, ``sendVoice``, ``sendLocation``, ``sendVenue``, ``sendContact``, ``sendPoll``, ``sendDice``, ``sendInvoice``, ``sendGame``, ``sendMediaGroup``, ``copyMessage``, ``copyMessages``, ``forwardMessage``, ``forwardMessages``
+  - Updated ``sendChatAction`` to support ``message_thread_id`` parameter in private chats
+  - Updated ``editForumTopic``, ``deleteForumTopic``, ``unpinAllForumTopicMessages`` methods to manage private chat topics
+  - Added ``is_name_implicit`` field to ``ForumTopic`` class
+
+  **Gifts System Enhancements**
+
+  Enhanced gifts functionality with new methods and extended capabilities:
+
+  - Added ``getUserGifts`` method to retrieve gifts owned and hosted by a user
+  - Added ``getChatGifts`` method to retrieve gifts owned by a chat
+  - Updated ``UniqueGiftInfo`` class: replaced ``last_resale_star_count`` with ``last_resale_currency`` and ``last_resale_amount`` fields, added "gifted_upgrade" and "offer" as origin values
+  - Updated ``getBusinessAccountGifts`` method: replaced ``exclude_limited`` parameter with ``exclude_limited_upgradable`` and ``exclude_limited_non_upgradable``, added ``exclude_from_blockchain`` parameter
+  - Added new fields to ``Gift`` class: ``personal_total_count``, ``personal_remaining_count``, ``is_premium``, ``has_colors``, ``unique_gift_variant_count``, ``gift_background``
+  - Added new fields to ``UniqueGift`` class: ``gift_id``, ``is_from_blockchain``, ``is_premium``, ``colors``
+  - Added new fields to gift info classes: ``is_upgrade_separate``, ``unique_gift_number``
+  - Added ``gift_upgrade_sent`` field to the ``Message`` class
+  - Added ``gifts_from_channels`` field to the ``AcceptedGiftTypes`` class
+  - Added new ``UniqueGiftColors`` class for color schemes in user names and link previews
+  - Added new ``GiftBackground`` class for gift background styling
+
+  **Business Accounts & Stories**
+
+  - Added ``repostStory`` method to enable reposting stories across managed business accounts
+
+  **Miscellaneous Updates**
+
+  - Bots can now disable main usernames and set ``can_restrict_members`` rights in channels
+  - Maximum paid media price increased to 25000 Telegram Stars
+  - Added new ``UserRating`` class
+  - Added ``rating``, ``paid_message_star_count``, ``unique_gift_colors`` fields to the ``ChatFullInfo`` class
+  - Added support for ``message_effect_id`` parameter in forward/copy operations
+  - Added ``completed_by_chat`` field to the ``ChecklistTask`` class
+  `#1747 <https://github.com/aiogram/aiogram/issues/1747>`_
+
+
+Bugfixes
+--------
+
+- Fixed I18n initialization with relative path
+  `#1740 <https://github.com/aiogram/aiogram/issues/1740>`_
+- Fixed dependency injection for arguments that have "ForwardRef" annotations in Py3.14+
+  since `inspect.getfullargspec(callback)` can't process callback if it's arguments have "ForwardRef" annotations
+  `#1741 <https://github.com/aiogram/aiogram/issues/1741>`_
+
+
+Misc
+----
+
+- Migrated from ``hatch`` to ``uv`` for dependency management and development workflows.
+
+  This change improves developer experience with significantly faster dependency resolution (10-100x faster than pip), automatic virtual environment management, and reproducible builds through lockfile support.
+
+  **What changed for contributors:**
+
+  - Install dependencies with ``uv sync --all-extras --group dev --group test`` instead of ``pip install -e .[dev,test,docs]``
+  - Run commands with ``uv run`` prefix (e.g., ``uv run pytest``, ``uv run black``)
+  - All Makefile commands now use ``uv`` internally (``make install``, ``make test``, ``make lint``, etc.)
+  - Version bumping now uses a custom ``scripts/bump_version.py`` script instead of ``hatch version``
+
+  **What stayed the same:**
+
+  - Build backend remains ``hatchling`` (no changes to package building)
+  - Dynamic version reading from ``aiogram/__meta__.py`` still works
+  - All GitHub Actions CI/CD workflows updated to use ``uv``
+  - ReadTheDocs builds continue to work without changes
+  - Development dependencies (``dev``, ``test``) moved to ``[dependency-groups]`` section
+  - Documentation dependencies (``docs``) remain in ``[project.optional-dependencies]`` for compatibility
+
+  Contributors can use either the traditional ``pip``/``venv`` workflow or the new ``uv`` workflow - both are documented in the contributing guide.
+  `#1748 <https://github.com/aiogram/aiogram/issues/1748>`_
+- Updated type hints in the codebase to Python 3.10+ style unions and optionals.
+  `#1749 <https://github.com/aiogram/aiogram/issues/1749>`_
+
+
+3.23.0 (2025-12-07)
+====================
+
+Features
+--------
+
+- This PR updates the codebase to support Python 3.14.
+
+  - Updated project dep `aiohttp`
+  - Updated development deps
+  - Fixed tests to support Py3.14
+  - Refactored `uvloop` using due to deprecation of `asyncio.set_event_loop_police`
+  `#1730 <https://github.com/aiogram/aiogram/issues/1730>`_
+
+
+Deprecations and Removals
+-------------------------
+
+- This PR updates the codebase following the end of life for Python 3.9.
+
+  Reference: https://devguide.python.org/versions/
+
+  - Updated type annotations to Python 3.10+ style, replacing deprecated ``List``, ``Set``, etc., with built-in ``list``, ``set``, and related types.
+  - Refactored code by simplifying nested ``if`` expressions.
+  - Updated several dependencies, including security-related upgrades.
+  `#1726 <https://github.com/aiogram/aiogram/issues/1726>`_
+
+
+Misc
+----
+
+- Updated pydantic to 2.12, which supports Python 3.14
+  `#1729 <https://github.com/aiogram/aiogram/issues/1729>`_
+- Temporary silents warn when `uvloop` uses deprecated `asyncio.iscoroutinefunction` function in py3.14+ in tests
+  `#1739 <https://github.com/aiogram/aiogram/issues/1739>`_
+
+
+3.22.0 (2025-08-17)
+====================
+
+Features
+--------
+
+- Support validating init data using only bot id.
+  `#1715 <https://github.com/aiogram/aiogram/issues/1715>`_
+- Added full support for the `Bot API 9.2 <https://core.telegram.org/bots/api-changelog#august-15-2025>`_:
+
+  **Direct Messages in Channels**
+
+  - Added the field :code:`is_direct_messages` to the classes :class:`aiogram.types.chat.Chat` and :class:`aiogram.types.chat_full_info.ChatFullInfo`, indicating whether the chat is a direct messages chat.
+  - Added the field :code:`parent_chat` to the class :class:`aiogram.types.chat_full_info.ChatFullInfo`, describing the parent channel for direct messages chats.
+  - Added the class :class:`aiogram.types.direct_messages_topic.DirectMessagesTopic` representing a direct messages topic.
+  - Added the field :code:`direct_messages_topic` to the class :class:`aiogram.types.message.Message`, describing the direct messages topic associated with a message.
+  - Added the parameter :code:`direct_messages_topic_id` to multiple sending methods for directing messages to specific direct message topics.
+
+  **Suggested Posts**
+
+  - Added the class :class:`aiogram.types.suggested_post_parameters.SuggestedPostParameters` representing parameters for suggested posts.
+  - Added the parameter :code:`suggested_post_parameters` to various sending methods, allowing bots to create suggested posts for channel approval.
+  - Added the method :class:`aiogram.methods.approve_suggested_post.ApproveSuggestedPost`, allowing bots to approve suggested posts in direct messages chats.
+  - Added the method :class:`aiogram.methods.decline_suggested_post.DeclineSuggestedPost`, allowing bots to decline suggested posts in direct messages chats.
+  - Added the field :code:`can_manage_direct_messages` to administrator-related classes :class:`aiogram.types.chat_administrator_rights.ChatAdministratorRights` and :class:`aiogram.types.chat_member_administrator.ChatMemberAdministrator`.
+  - Added the class :class:`aiogram.types.suggested_post_info.SuggestedPostInfo` representing information about a suggested post.
+  - Added the class :class:`aiogram.types.suggested_post_price.SuggestedPostPrice` representing the price for a suggested post.
+  - Added service message classes for suggested post events:
+
+    - :class:`aiogram.types.suggested_post_approved.SuggestedPostApproved` and the field :code:`suggested_post_approved` to :class:`aiogram.types.message.Message`
+    - :class:`aiogram.types.suggested_post_approval_failed.SuggestedPostApprovalFailed` and the field :code:`suggested_post_approval_failed` to :class:`aiogram.types.message.Message`
+    - :class:`aiogram.types.suggested_post_declined.SuggestedPostDeclined` and the field :code:`suggested_post_declined` to :class:`aiogram.types.message.Message`
+    - :class:`aiogram.types.suggested_post_paid.SuggestedPostPaid` and the field :code:`suggested_post_paid` to :class:`aiogram.types.message.Message`
+    - :class:`aiogram.types.suggested_post_refunded.SuggestedPostRefunded` and the field :code:`suggested_post_refunded` to :class:`aiogram.types.message.Message`
+
+  **Enhanced Checklists**
+
+  - Added the field :code:`checklist_task_id` to the class :class:`aiogram.types.reply_parameters.ReplyParameters`, allowing replies to specific checklist tasks.
+  - Added the field :code:`reply_to_checklist_task_id` to the class :class:`aiogram.types.message.Message`, indicating which checklist task a message is replying to.
+
+  **Gifts Improvements**
+
+  - Added the field :code:`publisher_chat` to the classes :class:`aiogram.types.gift.Gift` and :class:`aiogram.types.unique_gift.UniqueGift`, describing the chat that published the gift.
+
+  **Additional Features**
+
+  - Added the field :code:`is_paid_post` to the class :class:`aiogram.types.message.Message`, indicating whether a message is a paid post.
+  `#1720 <https://github.com/aiogram/aiogram/issues/1720>`_
+
+
+Bugfixes
+--------
+
+- Use `hmac.compare_digest` for validating WebApp data to prevent timing attacks.
+  `#1709 <https://github.com/aiogram/aiogram/issues/1709>`_
+
+
+Misc
+----
+
+- Migrated `MongoStorage` from relying on deprecated `motor` package to using new async `PyMongo`. To use mongo storage with new async `PyMongo`, you need to install the `PyMongo` package instead of `motor` and just substitute deprecated `MongoStorage` with `PyMongoStorage` class, no other action needed.
+  `#1705 <https://github.com/aiogram/aiogram/issues/1705>`_
+
+
+3.21.0 (2025-07-05)
+====================
+
+Features
+--------
+
+- Refactor methods input types to calm down MyPy. #1682
+
+  `Dict[str, Any]` is replaced with `Mapping[str, Any]` in the following methods:
+
+  - `FSMContext.set_data`
+  - `FSMContext.update_data`
+  - `BaseStorage.set_data`
+  - `BaseStorage.update_data`
+  - `BaseStorage's child methods`
+  - `SceneWizard.set_data`
+  - `SceneWizard.update_data`
+  `#1683 <https://github.com/aiogram/aiogram/issues/1683>`_
+- Add support for `State` type in scenes methods like `goto`, `enter`, `get`
+  `#1685 <https://github.com/aiogram/aiogram/issues/1685>`_
+- Added full support for the `Bot API 9.1 <https://core.telegram.org/bots/api-changelog#july-3-2025>`_:
+
+  **Checklists**
+
+  - Added the class :class:`aiogram.types.checklist_task.ChecklistTask` representing a task in a checklist.
+  - Added the class :class:`aiogram.types.checklist.Checklist` representing a checklist.
+  - Added the class :class:`aiogram.types.input_checklist_task.InputChecklistTask` representing a task to add to a checklist.
+  - Added the class :class:`aiogram.types.input_checklist.InputChecklist` representing a checklist to create.
+  - Added the field :code:`checklist` to the classes :class:`aiogram.types.message.Message` and :class:`aiogram.types.external_reply_info.ExternalReplyInfo`, describing a checklist in a message.
+  - Added the class :class:`aiogram.types.checklist_tasks_done.ChecklistTasksDone` and the field :code:`checklist_tasks_done` to the class :class:`aiogram.types.message.Message`, describing a service message about status changes for tasks in a checklist (i.e., marked as done/not done).
+  - Added the class :class:`aiogram.types.checklist_tasks_added.ChecklistTasksAdded` and the field :code:`checklist_tasks_added` to the class :class:`aiogram.types.message.Message`, describing a service message about the addition of new tasks to a checklist.
+  - Added the method :class:`aiogram.methods.send_checklist.SendChecklist`, allowing bots to send a checklist on behalf of a business account.
+  - Added the method :class:`aiogram.methods.edit_message_checklist.EditMessageChecklist`, allowing bots to edit a checklist on behalf of a business account.
+
+  **Gifts**
+
+  - Added the field :code:`next_transfer_date` to the classes :class:`aiogram.types.owned_gift_unique.OwnedGiftUnique` and :class:`aiogram.types.unique_gift_info.UniqueGiftInfo`.
+  - Added the field :code:`last_resale_star_count` to the class :class:`aiogram.types.unique_gift_info.UniqueGiftInfo`.
+  - Added "resale" as the possible value of the field :code:`origin` in the class :class:`aiogram.types.unique_gift_info.UniqueGiftInfo`.
+
+  **General**
+
+  - Increased the maximum number of options in a poll to 12.
+  - Added the method :class:`aiogram.methods.get_my_star_balance.GetMyStarBalance`, allowing bots to get their current balance of Telegram Stars.
+  - Added the class :class:`aiogram.types.direct_message_price_changed.DirectMessagePriceChanged` and the field :code:`direct_message_price_changed` to the class :class:`aiogram.types.message.Message`, describing a service message about a price change for direct messages sent to the channel chat.
+  `#1704 <https://github.com/aiogram/aiogram/issues/1704>`_
+
+
+Bugfixes
+--------
+
+- Fixed an issue where the scene entry handler (:code:`enter`) was not receiving data
+  passed to the context by middleware, which could result in a :code:`TypeError`.
+
+  Also updated the documentation to clarify how to enter the scene.
+  `#1672 <https://github.com/aiogram/aiogram/issues/1672>`_
+- Correctly pass error message in TelegramMigrateToChat.
+  `#1694 <https://github.com/aiogram/aiogram/issues/1694>`_
+
+
+Improved Documentation
+----------------------
+
+- Added documentation for changing state of another user in FSM
+  `#1633 <https://github.com/aiogram/aiogram/issues/1633>`_
+
+
+Misc
+----
+
+- Fixed MyPy [return-value] error in `InlineKeyboardBuilder().as_markup()`.
+  `as_markup` method now overloads parent class method and uses `super()`, to call parent's
+  `as_markup` method.
+  Also added correct type hint to `as_markup`'s return in `InlineKeyboardBuilder` and
+  `ReplyKeyboardBuilder` classes.
+  `#1677 <https://github.com/aiogram/aiogram/issues/1677>`_
+- Changed Babel's pinned version from minor to major.
+  `#1681 <https://github.com/aiogram/aiogram/issues/1681>`_
+- Increased max :code:`aiohttp` version support from “<3.12” to “<3.13”
+  `#1700 <https://github.com/aiogram/aiogram/issues/1700>`_
+
+
+3.20.0 (2025-04-14)
+====================
+
+Features
+--------
+
+- Add different shortcut methods for ``aiogram.utils.formatting.Text.as_kwargs()``
+  `#1657 <https://github.com/aiogram/aiogram/issues/1657>`_
+- Added full support for the `Bot API 9.0 <https://core.telegram.org/bots/api-changelog#april-11-2025>`_:
+
+  **Business Accounts**
+
+  - Added the class :class:`aiogram.types.business_bot_rights.BusinessBotRights` and replaced
+    the field :code:`can_reply` with the field :code:`rights` of the type
+    :class:`aiogram.types.business_bot_rights.BusinessBotRights` in the class
+    :class:`aiogram.types.business_connection.BusinessConnection`.
+  - Added the method :class:`aiogram.methods.read_business_message.ReadBusinessMessage`,
+    allowing bots to mark incoming messages as read on behalf of a business account.
+  - Added the method :class:`aiogram.methods.delete_business_messages.DeleteBusinessMessages`,
+    allowing bots to delete messages on behalf of a business account.
+  - Added the method :class:`aiogram.methods.set_business_account_name.SetBusinessAccountName`,
+    allowing bots to change the first and last name of a managed business account.
+  - Added the method :class:`aiogram.methods.set_business_account_username.SetBusinessAccountUsername`,
+    allowing bots to change the username of a managed business account.
+  - Added the method :class:`aiogram.methods.set_business_account_bio.SetBusinessAccountBio`,
+    allowing bots to change the bio of a managed business account.
+  - Added the class :class:`aiogram.types.input_profile_photo.InputProfilePhoto`,
+    describing a profile photo to be set.
+  - Added the methods :class:`aiogram.methods.set_business_account_profile_photo.SetBusinessAccountProfilePhoto`
+    and :class:`aiogram.methods.remove_business_account_profile_photo.RemoveBusinessAccountProfilePhoto`,
+    allowing bots to change the profile photo of a managed business account.
+  - Added the method :class:`aiogram.methods.set_business_account_gift_settings.SetBusinessAccountGiftSettings`,
+    allowing bots to change the privacy settings pertaining to incoming gifts in a managed business account.
+  - Added the class :class:`aiogram.types.star_amount.StarAmount` and the method
+    :class:`aiogram.methods.get_business_account_star_balance.GetBusinessAccountStarBalance`,
+    allowing bots to check the current Telegram Star balance of a managed business account.
+  - Added the method :class:`aiogram.methods.transfer_business_account_stars.TransferBusinessAccountStars`,
+    allowing bots to transfer Telegram Stars from the balance of a managed business account to their own balance
+    for withdrawal.
+  - Added the classes :class:`aiogram.types.owned_gift_regular.OwnedGiftRegular`,
+    :class:`aiogram.types.owned_gift_unique.OwnedGiftUnique`, :class:`aiogram.types.owned_gifts.OwnedGifts`
+    and the method :class:`aiogram.methods.get_business_account_gifts.GetBusinessAccountGifts`,
+    allowing bots to fetch the list of gifts owned by a managed business account.
+  - Added the method :class:`aiogram.methods.convert_gift_to_stars.ConvertGiftToStars`,
+    allowing bots to convert gifts received by a managed business account to Telegram Stars.
+  - Added the method :class:`aiogram.methods.upgrade_gift.UpgradeGift`,
+    allowing bots to upgrade regular gifts received by a managed business account to unique gifts.
+  - Added the method :class:`aiogram.methods.transfer_gift.TransferGift`,
+    allowing bots to transfer unique gifts owned by a managed business account.
+  - Added the classes :class:`aiogram.types.input_story_content_photo.InputStoryContentPhoto`
+    and :class:`aiogram.types.input_story_content_video.InputStoryContentVideo`
+    representing the content of a story to post.
+  - Added the classes :class:`aiogram.types.story_area.StoryArea`,
+    :class:`aiogram.types.story_area_position.StoryAreaPosition`,
+    :class:`aiogram.types.location_address.LocationAddress`,
+    :class:`aiogram.types.story_area_type_location.StoryAreaTypeLocation`,
+    :class:`aiogram.types.story_area_type_suggested_reaction.StoryAreaTypeSuggestedReaction`,
+    :class:`aiogram.types.story_area_type_link.StoryAreaTypeLink`,
+    :class:`aiogram.types.story_area_type_weather.StoryAreaTypeWeather`
+    and :class:`aiogram.types.story_area_type_unique_gift.StoryAreaTypeUniqueGift`,
+    describing clickable active areas on stories.
+  - Added the methods :class:`aiogram.methods.post_story.PostStory`,
+    :class:`aiogram.methods.edit_story.EditStory`
+    and :class:`aiogram.methods.delete_story.DeleteStory`,
+    allowing bots to post, edit and delete stories on behalf of a managed business account.
+
+  **Mini Apps**
+
+  - Added the field :code:`DeviceStorage`, allowing Mini Apps to use persistent
+    local storage on the user's device.
+  - Added the field :code:`SecureStorage`, allowing Mini Apps to use a secure local
+    storage on the user's device for sensitive data.
+
+  **Gifts**
+
+  - Added the classes :class:`aiogram.types.unique_gift_model.UniqueGiftModel`,
+    :class:`aiogram.types.unique_gift_symbol.UniqueGiftSymbol`,
+    :class:`aiogram.types.unique_gift_backdrop_colors.UniqueGiftBackdropColors`,
+    and :class:`aiogram.types.unique_gift_backdrop.UniqueGiftBackdrop`
+    to describe the properties of a unique gift.
+  - Added the class :class:`aiogram.types.unique_gift.UniqueGift` describing
+    a gift that was upgraded to a unique one.
+  - Added the class :class:`aiogram.types.accepted_gift_types.AcceptedGiftTypes`
+    describing the types of gifts that are accepted by a user or a chat.
+  - Replaced the field :code:`can_send_gift` with the field :code:`accepted_gift_types`
+    of the type :class:`aiogram.types.accepted_gift_types.AcceptedGiftTypes`
+    in the class :class:`aiogram.types.chat_full_info.ChatFullInfo`.
+  - Added the class :class:`aiogram.types.gift_info.GiftInfo` and the field :code:`gift`
+    to the class :class:`aiogram.types.message.Message`,
+    describing a service message about a regular gift that was sent or received.
+  - Added the class :class:`aiogram.types.unique_gift_info.UniqueGiftInfo`
+    and the field :code:`unique_gift` to the class :class:`aiogram.types.message.Message`,
+    describing a service message about a unique gift that was sent or received.
+
+  **Telegram Premium**
+
+  - Added the method :class:`aiogram.methods.gift_premium_subscription.GiftPremiumSubscription`,
+    allowing bots to gift a user a Telegram Premium subscription paid in Telegram Stars.
+  - Added the field :code:`premium_subscription_duration` to the class
+    :class:`aiogram.types.transaction_partner_user.TransactionPartnerUser`
+  for transactions involving a Telegram Premium subscription purchased by the bot.
+  - Added the field :code:`transaction_type` to the class
+    :class:`aiogram.types.transaction_partner_user.TransactionPartnerUser`,
+    simplifying the differentiation and processing of all transaction types.
+
+  **General**
+
+  - Increased the maximum price for paid media to 10000 Telegram Stars.
+  - Increased the maximum price for a subscription period to 10000 Telegram Stars.
+  - Added the class :class:`aiogram.types.paid_message_price_changed.PaidMessagePriceChanged`
+    and the field :code:`paid_message_price_changed` to the class
+    :class:`aiogram.types.message.Message`, describing a service message about a price change
+    for paid messages sent to the chat.
+  - Added the field :code:`paid_star_count` to the class :class:`aiogram.types.message.Message`,
+    containing the number of Telegram Stars that were paid to send the message.
+  `#1671 <https://github.com/aiogram/aiogram/issues/1671>`_
+
+
+Bugfixes
+--------
+
+- Fix memory exhaustion in polling mode with concurrent updates.
+
+  Added a semaphore-based solution to limit the number of concurrent tasks when using :code:`handle_as_tasks=True` in polling mode.
+  This prevents Out of Memory (OOM) errors in memory-limited containers when there's a large queue of updates to process.
+  You can now control the maximum number of concurrent updates with the new :code:`tasks_concurrency_limit`
+  parameter in :code:`start_polling()` and :code:`run_polling()` methods.
+  `#1658 <https://github.com/aiogram/aiogram/issues/1658>`_
+- Fix empty response into webhook.
+
+  We need to return something “empty”, and “empty” form doesn’t work since
+  it’s sending only “end” boundary w/o “start”.
+
+  An empty formdata should look smth like this for Telegram to understand:
+
+  ::
+
+     --webhookBoundaryvsF_aMHhspPjfOq7O0JNRg
+     --webhookBoundaryvsF_aMHhspPjfOq7O0JNRg--
+
+  But aiohttp sends only the ending boundary:
+
+  ::
+
+     --webhookBoundaryvsF_aMHhspPjfOq7O0JNRg--
+
+  Such response doesn't suit Telegram servers.
+
+  The fix replaces empty response with empty JSON response:
+
+  ::
+
+     {}
+  `#1664 <https://github.com/aiogram/aiogram/issues/1664>`_
+
+
+Improved Documentation
+----------------------
+
+- Fixed broken code block formatting in ``router.rst`` caused by incorrect indentation of directive options.
+  `#1666 <https://github.com/aiogram/aiogram/issues/1666>`_
+
+
+Misc
+----
+
+- Bump pydantic upper bound from <2.11 to <2.12.
+  Upgrading `pydantic` to version 2.11 significantly reduces resource consumption, more details on the `pydantic blog post <https://pydantic.dev/articles/pydantic-v2-11-release>`_
+  `#1659 <https://github.com/aiogram/aiogram/issues/1659>`_
+- Replaced ```loop.run_in_executor``` with ```asyncio.to_thread``` for improved readability and consistency.
+  `#1661 <https://github.com/aiogram/aiogram/issues/1661>`_
+
+
 3.19.0 (2025-03-19)
 ====================
 

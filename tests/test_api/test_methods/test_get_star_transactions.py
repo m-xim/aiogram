@@ -1,8 +1,8 @@
 from datetime import datetime
 
+from aiogram.enums import TransactionPartnerUserTransactionTypeEnum
 from aiogram.methods import GetStarTransactions
 from aiogram.types import (
-    File,
     StarTransaction,
     StarTransactions,
     TransactionPartnerUser,
@@ -26,6 +26,7 @@ class TestGetStarTransactions:
                         date=datetime.now(),
                         source=TransactionPartnerUser(
                             user=user,
+                            transaction_type=TransactionPartnerUserTransactionTypeEnum.GIFT_PURCHASE,
                         ),
                     ),
                     StarTransaction(
@@ -35,12 +36,13 @@ class TestGetStarTransactions:
                         date=datetime.now(),
                         receiver=TransactionPartnerUser(
                             user=user,
+                            transaction_type=TransactionPartnerUserTransactionTypeEnum.GIFT_PURCHASE,
                         ),
                     ),
                 ]
             ),
         )
 
-        response: File = await bot.get_star_transactions(limit=10, offset=0)
-        request = bot.get_request()
+        response: StarTransactions = await bot.get_star_transactions(limit=10, offset=0)
+        bot.get_request()
         assert response == prepare_result.result

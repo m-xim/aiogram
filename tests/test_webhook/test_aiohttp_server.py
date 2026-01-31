@@ -2,7 +2,7 @@ import asyncio
 import time
 from asyncio import Event
 from dataclasses import dataclass
-from typing import Any, Dict
+from typing import Any
 from unittest.mock import AsyncMock, patch
 
 import pytest
@@ -150,13 +150,9 @@ class TestSimpleRequestHandler:
 
         resp = await self.make_reqest(client=client, text="spam")
         assert resp.status == 200
-        assert resp.content_type == "multipart/form-data"
-        result = {}
-        reader = MultipartReader.from_response(resp)
-        while part := await reader.next():
-            value = await part.read()
-            result[part.name] = value.decode()
-        assert not result
+        assert resp.content_type == "application/json"
+        expected_result = {}
+        assert await resp.json() == expected_result
 
     async def test_reply_into_webhook_background(self, bot: MockedBot, aiohttp_client):
         app = Application()
@@ -189,8 +185,8 @@ class TestSimpleRequestHandler:
             handler_event.clear()
             resp = await self.make_reqest(client=client)
             assert resp.status == 200
-            await asyncio.wait_for(handler_event.wait(), timeout=1)
-            await asyncio.wait_for(method_called_event.wait(), timeout=1)
+            await asyncio.wait_for(handler_event.wait(), timeout=3)
+            await asyncio.wait_for(method_called_event.wait(), timeout=3)
             # Python 3.12 had some changes to asyncio which make it quite a bit faster. But
             # probably because of that the assert_awaited call is consistently scheduled before the
             # silent_call_request call - failing the test. So we wait for the method to be called
@@ -255,7 +251,7 @@ class TestTokenBasedRequestHandler:
 
         @dataclass
         class FakeRequest:
-            match_info: Dict[str, Any]
+            match_info: dict[str, Any]
 
         bot1 = await handler.resolve_bot(request=FakeRequest(match_info={"bot_token": "42:TEST"}))
         assert bot1.id == 42

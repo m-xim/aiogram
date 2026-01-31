@@ -1,12 +1,14 @@
 import json
+from collections.abc import AsyncGenerator, Callable, Mapping
 from contextlib import asynccontextmanager
-from typing import Any, AsyncGenerator, Callable, Dict, Optional, cast
+from typing import Any, cast
 
 from redis.asyncio.client import Redis
 from redis.asyncio.connection import ConnectionPool
 from redis.asyncio.lock import Lock
 from redis.typing import ExpiryT
 
+from aiogram.exceptions import DataNotDictLikeError
 from aiogram.fsm.state import State
 from aiogram.fsm.storage.base import (
     BaseEventIsolation,
@@ -30,9 +32,9 @@ class RedisStorage(BaseStorage):
     def __init__(
         self,
         redis: Redis,
-        key_builder: Optional[KeyBuilder] = None,
-        state_ttl: Optional[ExpiryT] = None,
-        data_ttl: Optional[ExpiryT] = None,
+        key_builder: KeyBuilder | None = None,
+        state_ttl: ExpiryT | None = None,
+        data_ttl: ExpiryT | None = None,
         json_loads: _JsonLoads = json.loads,
         json_dumps: _JsonDumps = json.dumps,
     ) -> None:
@@ -53,7 +55,10 @@ class RedisStorage(BaseStorage):
 
     @classmethod
     def from_url(
-        cls, url: str, connection_kwargs: Optional[Dict[str, Any]] = None, **kwargs: Any
+        cls,
+        url: str,
+        connection_kwargs: dict[str, Any] | None = None,
+        **kwargs: Any,
     ) -> "RedisStorage":
         """
         Create an instance of :class:`RedisStorage` with specifying the connection string
@@ -93,18 +98,22 @@ class RedisStorage(BaseStorage):
     async def get_state(
         self,
         key: StorageKey,
-    ) -> Optional[str]:
+    ) -> str | None:
         redis_key = self.key_builder.build(key, "state")
         value = await self.redis.get(redis_key)
         if isinstance(value, bytes):
             return value.decode("utf-8")
-        return cast(Optional[str], value)
+        return cast(str | None, value)
 
     async def set_data(
         self,
         key: StorageKey,
-        data: Dict[str, Any],
+        data: Mapping[str, Any],
     ) -> None:
+        if not isinstance(data, dict):
+            msg = f"Data must be a dict or dict-like object, got {type(data).__name__}"
+            raise DataNotDictLikeError(msg)
+
         redis_key = self.key_builder.build(key, "data")
         if not data:
             await self.redis.delete(redis_key)
@@ -118,22 +127,22 @@ class RedisStorage(BaseStorage):
     async def get_data(
         self,
         key: StorageKey,
-    ) -> Dict[str, Any]:
+    ) -> dict[str, Any]:
         redis_key = self.key_builder.build(key, "data")
         value = await self.redis.get(redis_key)
         if value is None:
             return {}
         if isinstance(value, bytes):
             value = value.decode("utf-8")
-        return cast(Dict[str, Any], self.json_loads(value))
+        return cast(dict[str, Any], self.json_loads(value))
 
 
 class RedisEventIsolation(BaseEventIsolation):
     def __init__(
         self,
         redis: Redis,
-        key_builder: Optional[KeyBuilder] = None,
-        lock_kwargs: Optional[Dict[str, Any]] = None,
+        key_builder: KeyBuilder | None = None,
+        lock_kwargs: dict[str, Any] | None = None,
     ) -> None:
         if key_builder is None:
             key_builder = DefaultKeyBuilder()
@@ -147,7 +156,7 @@ class RedisEventIsolation(BaseEventIsolation):
     def from_url(
         cls,
         url: str,
-        connection_kwargs: Optional[Dict[str, Any]] = None,
+        connection_kwargs: dict[str, Any] | None = None,
         **kwargs: Any,
     ) -> "RedisEventIsolation":
         if connection_kwargs is None:

@@ -1,8 +1,8 @@
 {
   "meta": {},
   "group": {
-    "title": "Stickers",
-    "anchor": "stickers"
+    "title": "Available methods",
+    "anchor": "available-methods"
   },
   "object": {
     "anchor": "sendgift",
@@ -30,9 +30,9 @@
       {
         "type": "String",
         "required": true,
-        "description": "Identifier of the gift",
-        "html_description": "<td>Identifier of the gift</td>",
-        "rst_description": "Identifier of the gift\n",
+        "description": "Identifier of the gift; limited gifts can't be sent to channel chats",
+        "html_description": "<td>Identifier of the gift; limited gifts can't be sent to channel chats</td>",
+        "rst_description": "Identifier of the gift; limited gifts can't be sent to channel chats\n",
         "name": "gift_id"
       },
       {
@@ -46,9 +46,9 @@
       {
         "type": "String",
         "required": false,
-        "description": "Text that will be shown along with the gift; 0-255 characters",
-        "html_description": "<td>Text that will be shown along with the gift; 0-255 characters</td>",
-        "rst_description": "Text that will be shown along with the gift; 0-255 characters\n",
+        "description": "Text that will be shown along with the gift; 0-128 characters",
+        "html_description": "<td>Text that will be shown along with the gift; 0-128 characters</td>",
+        "rst_description": "Text that will be shown along with the gift; 0-128 characters\n",
         "name": "text"
       },
       {
