@@ -14,10 +14,26 @@
       {
         "type": "Integer or String",
         "required": true,
-        "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
-        "html_description": "<td>Unique identifier for the target chat or username of the target channel (in the format <code>@channelusername</code>)</td>",
-        "rst_description": "Unique identifier for the target chat or username of the target channel (in the format :code:`@channelusername`)\n",
+        "description": "Unique identifier for the target chat or username of the target bot, supergroup or channel in the format @username",
+        "html_description": "<td>Unique identifier for the target chat or username of the target bot, supergroup or channel in the format <code>@username</code></td>",
+        "rst_description": "Unique identifier for the target chat or username of the target bot, supergroup or channel in the format :code:`@username`\n",
         "name": "chat_id"
+      },
+      {
+        "type": "Integer or String",
+        "required": true,
+        "description": "Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format @username)",
+        "html_description": "<td>Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format <code>@username</code>)</td>",
+        "rst_description": "Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format :code:`@username`)\n",
+        "name": "from_chat_id"
+      },
+      {
+        "type": "Integer",
+        "required": true,
+        "description": "Message identifier in the chat specified in from_chat_id",
+        "html_description": "<td>Message identifier in the chat specified in <em>from_chat_id</em></td>",
+        "rst_description": "Message identifier in the chat specified in *from_chat_id*\n",
+        "name": "message_id"
       },
       {
         "type": "Integer",
@@ -36,22 +52,6 @@
         "name": "direct_messages_topic_id"
       },
       {
-        "type": "Integer or String",
-        "required": true,
-        "description": "Unique identifier for the chat where the original message was sent (or channel username in the format @channelusername)",
-        "html_description": "<td>Unique identifier for the chat where the original message was sent (or channel username in the format <code>@channelusername</code>)</td>",
-        "rst_description": "Unique identifier for the chat where the original message was sent (or channel username in the format :code:`@channelusername`)\n",
-        "name": "from_chat_id"
-      },
-      {
-        "type": "Integer",
-        "required": true,
-        "description": "Message identifier in the chat specified in from_chat_id",
-        "html_description": "<td>Message identifier in the chat specified in <em>from_chat_id</em></td>",
-        "rst_description": "Message identifier in the chat specified in *from_chat_id*\n",
-        "name": "message_id"
-      },
-      {
         "type": "Integer",
         "required": false,
         "description": "New start timestamp for the copied video in the message",
@@ -62,9 +62,9 @@
       {
         "type": "String",
         "required": false,
-        "description": "New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept",
-        "html_description": "<td>New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept</td>",
-        "rst_description": "New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept\n",
+        "description": "New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept.",
+        "html_description": "<td>New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept.</td>",
+        "rst_description": "New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept.\n",
         "name": "caption"
       },
       {
@@ -110,9 +110,9 @@
       {
         "type": "Boolean",
         "required": false,
-        "description": "Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance",
-        "html_description": "<td>Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href=\"https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once\">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance</td>",
-        "rst_description": "Pass :code:`True` to allow up to 1000 messages per second, ignoring `broadcasting limits <https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once>`_ for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance\n",
+        "description": "Pass True to allow up to 1000 messages per second, ignoring broadcasting limits for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.",
+        "html_description": "<td>Pass <em>True</em> to allow up to 1000 messages per second, ignoring <a href=\"https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once\">broadcasting limits</a> for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.</td>",
+        "rst_description": "Pass :code:`True` to allow up to 1000 messages per second, ignoring `broadcasting limits <https://core.telegram.org/bots/faq#how-can-i-message-all-of-my-bot-39s-subscribers-at-once>`_ for a fee of 0.1 Telegram Stars per message. The relevant Stars will be withdrawn from the bot's balance.\n",
         "name": "allow_paid_broadcast"
       },
       {
@@ -142,9 +142,9 @@
       {
         "type": "InlineKeyboardMarkup or ReplyKeyboardMarkup or ReplyKeyboardRemove or ForceReply",
         "required": false,
-        "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user",
-        "html_description": "<td>Additional interface options. A JSON-serialized object for an <a href=\"/bots/features#inline-keyboards\">inline keyboard</a>, <a href=\"/bots/features#keyboards\">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user</td>",
-        "rst_description": "Additional interface options. A JSON-serialized object for an `inline keyboard <https://core.telegram.org/bots/features#inline-keyboards>`_, `custom reply keyboard <https://core.telegram.org/bots/features#keyboards>`_, instructions to remove a reply keyboard or to force a reply from the user\n",
+        "description": "Additional interface options. A JSON-serialized object for an inline keyboard, custom reply keyboard, instructions to remove a reply keyboard or to force a reply from the user.",
+        "html_description": "<td>Additional interface options. A JSON-serialized object for an <a href=\"/bots/features#inline-keyboards\">inline keyboard</a>, <a href=\"/bots/features#keyboards\">custom reply keyboard</a>, instructions to remove a reply keyboard or to force a reply from the user.</td>",
+        "rst_description": "Additional interface options. A JSON-serialized object for an `inline keyboard <https://core.telegram.org/bots/features#inline-keyboards>`_, `custom reply keyboard <https://core.telegram.org/bots/features#keyboards>`_, instructions to remove a reply keyboard or to force a reply from the user.\n",
         "name": "reply_markup"
       },
       {

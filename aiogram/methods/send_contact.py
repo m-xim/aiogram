@@ -26,7 +26,7 @@ class SendContact(TelegramMethod[Message]):
     __api_method__ = "sendContact"
 
     chat_id: ChatIdUnion
-    """Unique identifier for the target chat or username of the target channel (in the format :code:`@channelusername`)"""
+    """Unique identifier for the target chat or username of the target bot, supergroup or channel in the format :code:`@username`"""
     phone_number: str
     """Contact's phone number"""
     first_name: str
@@ -42,7 +42,7 @@ class SendContact(TelegramMethod[Message]):
     vcard: str | None = None
     """Additional data about the contact in the form of a `vCard <https://en.wikipedia.org/wiki/VCard>`_, 0-2048 bytes"""
     disable_notification: bool | None = None
-    """Sends the message `silently <https://telegram.org/blog/channels-2-0#silent-messages>`_. Users will receive a notification with no sound."""
+    """Sends the message `silently <https://telegram.org/blog/channels-2-0#silent-messages>`_. Users will receive a notification with no sound"""
     protect_content: bool | Default | None = Default("protect_content")
     """Protects the contents of the sent message from forwarding and saving"""
     allow_paid_broadcast: bool | None = None
@@ -50,7 +50,7 @@ class SendContact(TelegramMethod[Message]):
     message_effect_id: str | None = None
     """Unique identifier of the message effect to be added to the message; for private chats only"""
     suggested_post_parameters: SuggestedPostParameters | None = None
-    """A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined."""
+    """A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined"""
     reply_parameters: ReplyParameters | None = None
     """Description of the message to reply to"""
     reply_markup: ReplyMarkupUnion | None = None

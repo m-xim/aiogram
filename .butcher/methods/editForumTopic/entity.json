@@ -14,9 +14,9 @@
       {
         "type": "Integer or String",
         "required": true,
-        "description": "Unique identifier for the target chat or username of the target supergroup (in the format @supergroupusername)",
-        "html_description": "<td>Unique identifier for the target chat or username of the target supergroup (in the format <code>@supergroupusername</code>)</td>",
-        "rst_description": "Unique identifier for the target chat or username of the target supergroup (in the format :code:`@supergroupusername`)\n",
+        "description": "Unique identifier for the target chat or username of the target supergroup in the format @username",
+        "html_description": "<td>Unique identifier for the target chat or username of the target supergroup in the format <code>@username</code></td>",
+        "rst_description": "Unique identifier for the target chat or username of the target supergroup in the format :code:`@username`\n",
         "name": "chat_id"
       },
       {
@@ -30,17 +30,17 @@
       {
         "type": "String",
         "required": false,
-        "description": "New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept",
-        "html_description": "<td>New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept</td>",
-        "rst_description": "New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept\n",
+        "description": "New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept.",
+        "html_description": "<td>New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept.</td>",
+        "rst_description": "New topic name, 0-128 characters. If not specified or empty, the current name of the topic will be kept.\n",
         "name": "name"
       },
       {
         "type": "String",
         "required": false,
-        "description": "New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept",
-        "html_description": "<td>New unique identifier of the custom emoji shown as the topic icon. Use <a href=\"#getforumtopiciconstickers\">getForumTopicIconStickers</a> to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept</td>",
-        "rst_description": "New unique identifier of the custom emoji shown as the topic icon. Use :class:`aiogram.methods.get_forum_topic_icon_stickers.GetForumTopicIconStickers` to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept\n",
+        "description": "New unique identifier of the custom emoji shown as the topic icon. Use getForumTopicIconStickers to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept.",
+        "html_description": "<td>New unique identifier of the custom emoji shown as the topic icon. Use <a href=\"#getforumtopiciconstickers\">getForumTopicIconStickers</a> to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept.</td>",
+        "rst_description": "New unique identifier of the custom emoji shown as the topic icon. Use :class:`aiogram.methods.get_forum_topic_icon_stickers.GetForumTopicIconStickers` to get all allowed custom emoji identifiers. Pass an empty string to remove the icon. If not specified, the current icon will be kept.\n",
         "name": "icon_custom_emoji_id"
       }
     ],

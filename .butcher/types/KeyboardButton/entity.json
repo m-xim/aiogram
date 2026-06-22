@@ -13,9 +13,9 @@
     "annotations": [
       {
         "type": "String",
-        "description": "Text of the button. If none of the fields other than text, icon_custom_emoji_id, and style are used, it will be sent as a message when the button is pressed",
-        "html_description": "<td>Text of the button. If none of the fields other than <em>text</em>, <em>icon_custom_emoji_id</em>, and <em>style</em> are used, it will be sent as a message when the button is pressed</td>",
-        "rst_description": "Text of the button. If none of the fields other than *text*, *icon_custom_emoji_id*, and *style* are used, it will be sent as a message when the button is pressed\n",
+        "description": "Text of the button. If none of the fields other than text, icon_custom_emoji_id, and style are used, it will be sent as a message when the button is pressed.",
+        "html_description": "<td>Text of the button. If none of the fields other than <em>text</em>, <em>icon_custom_emoji_id</em>, and <em>style</em> are used, it will be sent as a message when the button is pressed.</td>",
+        "rst_description": "Text of the button. If none of the fields other than *text*, *icon_custom_emoji_id*, and *style* are used, it will be sent as a message when the button is pressed.\n",
         "name": "text",
         "required": true
       },
@@ -49,6 +49,14 @@
         "html_description": "<td><em>Optional</em>. If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a &#8220;chat_shared&#8221; service message. Available in private chats only.</td>",
         "rst_description": "*Optional*. If specified, pressing the button will open a list of suitable chats. Tapping on a chat will send its identifier to the bot in a 'chat_shared' service message. Available in private chats only.\n",
         "name": "request_chat",
+        "required": false
+      },
+      {
+        "type": "KeyboardButtonRequestManagedBot",
+        "description": "If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the @BotFather Mini App. Available in private chats only.",
+        "html_description": "<td><em>Optional</em>. If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the <a href=\"https://t.me/BotFather\">@BotFather</a> Mini App. Available in private chats only.</td>",
+        "rst_description": "*Optional*. If specified, pressing the button will ask the user to create and share a bot that will be managed by the current bot. Available for bots that enabled management of other bots in the `@BotFather <https://t.me/BotFather>`_ Mini App. Available in private chats only.\n",
+        "name": "request_managed_bot",
         "required": false
       },
       {

@@ -28,9 +28,9 @@ class CopyMessage(TelegramMethod[MessageId]):
     __api_method__ = "copyMessage"
 
     chat_id: ChatIdUnion
-    """Unique identifier for the target chat or username of the target channel (in the format :code:`@channelusername`)"""
+    """Unique identifier for the target chat or username of the target bot, supergroup or channel in the format :code:`@username`"""
     from_chat_id: ChatIdUnion
-    """Unique identifier for the chat where the original message was sent (or channel username in the format :code:`@channelusername`)"""
+    """Unique identifier for the chat where the original message was sent (or username of the target bot, supergroup or channel in the format :code:`@username`)"""
     message_id: int
     """Message identifier in the chat specified in *from_chat_id*"""
     message_thread_id: int | None = None
@@ -42,13 +42,13 @@ class CopyMessage(TelegramMethod[MessageId]):
     caption: str | None = None
     """New caption for media, 0-1024 characters after entities parsing. If not specified, the original caption is kept"""
     parse_mode: str | Default | None = Default("parse_mode")
-    """Mode for parsing entities in the new caption. See `formatting options <https://core.telegram.org/bots/api#formatting-options>`_ for more details."""
+    """Mode for parsing entities in the new caption. See `formatting options <https://core.telegram.org/bots/api#formatting-options>`_ for more details"""
     caption_entities: list[MessageEntity] | None = None
     """A JSON-serialized list of special entities that appear in the new caption, which can be specified instead of *parse_mode*"""
     show_caption_above_media: bool | Default | None = Default("show_caption_above_media")
-    """Pass :code:`True`, if the caption must be shown above the message media. Ignored if a new caption isn't specified."""
+    """Pass :code:`True`, if the caption must be shown above the message media. Ignored if a new caption isn't specified"""
     disable_notification: bool | None = None
-    """Sends the message `silently <https://telegram.org/blog/channels-2-0#silent-messages>`_. Users will receive a notification with no sound."""
+    """Sends the message `silently <https://telegram.org/blog/channels-2-0#silent-messages>`_. Users will receive a notification with no sound"""
     protect_content: bool | Default | None = Default("protect_content")
     """Protects the contents of the sent message from forwarding and saving"""
     allow_paid_broadcast: bool | None = None
@@ -56,7 +56,7 @@ class CopyMessage(TelegramMethod[MessageId]):
     message_effect_id: str | None = None
     """Unique identifier of the message effect to be added to the message; only available when copying to private chats"""
     suggested_post_parameters: SuggestedPostParameters | None = None
-    """A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined."""
+    """A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined"""
     reply_parameters: ReplyParameters | None = None
     """Description of the message to reply to"""
     reply_markup: ReplyMarkupUnion | None = None

@@ -14,9 +14,9 @@
       {
         "type": "Integer or String",
         "required": true,
-        "description": "Unique identifier for the target chat or username of the target channel (in the format @channelusername)",
-        "html_description": "<td>Unique identifier for the target chat or username of the target channel (in the format <code>@channelusername</code>)</td>",
-        "rst_description": "Unique identifier for the target chat or username of the target channel (in the format :code:`@channelusername`)\n",
+        "description": "Unique identifier for the target chat or username of the target channel in the format @username",
+        "html_description": "<td>Unique identifier for the target chat or username of the target channel in the format <code>@username</code></td>",
+        "rst_description": "Unique identifier for the target chat or username of the target channel in the format :code:`@username`\n",
         "name": "chat_id"
       },
       {
@@ -94,9 +94,9 @@
       {
         "type": "Integer",
         "required": false,
-        "description": "The maximum number of gifts to be returned; 1-100. Defaults to 100",
-        "html_description": "<td>The maximum number of gifts to be returned; 1-100. Defaults to 100</td>",
-        "rst_description": "The maximum number of gifts to be returned; 1-100. Defaults to 100\n",
+        "description": "The maximum number of gifts to be returned; 1-100. Defaults to 100.",
+        "html_description": "<td>The maximum number of gifts to be returned; 1-100. Defaults to 100.</td>",
+        "rst_description": "The maximum number of gifts to be returned; 1-100. Defaults to 100.\n",
         "name": "limit"
       }
     ],

@@ -1,5 +1,7 @@
 from .add_sticker_to_set import AddStickerToSet
 from .answer_callback_query import AnswerCallbackQuery
+from .answer_chat_join_request_query import AnswerChatJoinRequestQuery
+from .answer_guest_query import AnswerGuestQuery
 from .answer_inline_query import AnswerInlineQuery
 from .answer_pre_checkout_query import AnswerPreCheckoutQuery
 from .answer_shipping_query import AnswerShippingQuery
@@ -22,11 +24,13 @@ from .create_invoice_link import CreateInvoiceLink
 from .create_new_sticker_set import CreateNewStickerSet
 from .decline_chat_join_request import DeclineChatJoinRequest
 from .decline_suggested_post import DeclineSuggestedPost
+from .delete_all_message_reactions import DeleteAllMessageReactions
 from .delete_business_messages import DeleteBusinessMessages
 from .delete_chat_photo import DeleteChatPhoto
 from .delete_chat_sticker_set import DeleteChatStickerSet
 from .delete_forum_topic import DeleteForumTopic
 from .delete_message import DeleteMessage
+from .delete_message_reaction import DeleteMessageReaction
 from .delete_messages import DeleteMessages
 from .delete_my_commands import DeleteMyCommands
 from .delete_sticker_from_set import DeleteStickerFromSet
@@ -62,6 +66,8 @@ from .get_custom_emoji_stickers import GetCustomEmojiStickers
 from .get_file import GetFile
 from .get_forum_topic_icon_stickers import GetForumTopicIconStickers
 from .get_game_high_scores import GetGameHighScores
+from .get_managed_bot_access_settings import GetManagedBotAccessSettings
+from .get_managed_bot_token import GetManagedBotToken
 from .get_me import GetMe
 from .get_my_commands import GetMyCommands
 from .get_my_default_administrator_rights import GetMyDefaultAdministratorRights
@@ -74,6 +80,7 @@ from .get_sticker_set import GetStickerSet
 from .get_updates import GetUpdates
 from .get_user_chat_boosts import GetUserChatBoosts
 from .get_user_gifts import GetUserGifts
+from .get_user_personal_chat_messages import GetUserPersonalChatMessages
 from .get_user_profile_audios import GetUserProfileAudios
 from .get_user_profile_photos import GetUserProfilePhotos
 from .get_webhook_info import GetWebhookInfo
@@ -92,14 +99,17 @@ from .remove_my_profile_photo import RemoveMyProfilePhoto
 from .remove_user_verification import RemoveUserVerification
 from .reopen_forum_topic import ReopenForumTopic
 from .reopen_general_forum_topic import ReopenGeneralForumTopic
+from .replace_managed_bot_token import ReplaceManagedBotToken
 from .replace_sticker_in_set import ReplaceStickerInSet
 from .repost_story import RepostStory
 from .restrict_chat_member import RestrictChatMember
 from .revoke_chat_invite_link import RevokeChatInviteLink
 from .save_prepared_inline_message import SavePreparedInlineMessage
+from .save_prepared_keyboard_button import SavePreparedKeyboardButton
 from .send_animation import SendAnimation
 from .send_audio import SendAudio
 from .send_chat_action import SendChatAction
+from .send_chat_join_request_web_app import SendChatJoinRequestWebApp
 from .send_checklist import SendChecklist
 from .send_contact import SendContact
 from .send_dice import SendDice
@@ -107,6 +117,7 @@ from .send_document import SendDocument
 from .send_game import SendGame
 from .send_gift import SendGift
 from .send_invoice import SendInvoice
+from .send_live_photo import SendLivePhoto
 from .send_location import SendLocation
 from .send_media_group import SendMediaGroup
 from .send_message import SendMessage
@@ -114,6 +125,8 @@ from .send_message_draft import SendMessageDraft
 from .send_paid_media import SendPaidMedia
 from .send_photo import SendPhoto
 from .send_poll import SendPoll
+from .send_rich_message import SendRichMessage
+from .send_rich_message_draft import SendRichMessageDraft
 from .send_sticker import SendSticker
 from .send_venue import SendVenue
 from .send_video import SendVideo
@@ -134,6 +147,7 @@ from .set_chat_sticker_set import SetChatStickerSet
 from .set_chat_title import SetChatTitle
 from .set_custom_emoji_sticker_set_thumbnail import SetCustomEmojiStickerSetThumbnail
 from .set_game_score import SetGameScore
+from .set_managed_bot_access_settings import SetManagedBotAccessSettings
 from .set_message_reaction import SetMessageReaction
 from .set_my_commands import SetMyCommands
 from .set_my_default_administrator_rights import SetMyDefaultAdministratorRights
@@ -169,6 +183,8 @@ from .verify_user import VerifyUser
 __all__ = (
     "AddStickerToSet",
     "AnswerCallbackQuery",
+    "AnswerChatJoinRequestQuery",
+    "AnswerGuestQuery",
     "AnswerInlineQuery",
     "AnswerPreCheckoutQuery",
     "AnswerShippingQuery",
@@ -190,11 +206,13 @@ __all__ = (
     "CreateNewStickerSet",
     "DeclineChatJoinRequest",
     "DeclineSuggestedPost",
+    "DeleteAllMessageReactions",
     "DeleteBusinessMessages",
     "DeleteChatPhoto",
     "DeleteChatStickerSet",
     "DeleteForumTopic",
     "DeleteMessage",
+    "DeleteMessageReaction",
     "DeleteMessages",
     "DeleteMyCommands",
     "DeleteStickerFromSet",
@@ -230,6 +248,8 @@ __all__ = (
     "GetFile",
     "GetForumTopicIconStickers",
     "GetGameHighScores",
+    "GetManagedBotAccessSettings",
+    "GetManagedBotToken",
     "GetMe",
     "GetMyCommands",
     "GetMyDefaultAdministratorRights",
@@ -242,6 +262,7 @@ __all__ = (
     "GetUpdates",
     "GetUserChatBoosts",
     "GetUserGifts",
+    "GetUserPersonalChatMessages",
     "GetUserProfileAudios",
     "GetUserProfilePhotos",
     "GetWebhookInfo",
@@ -260,6 +281,7 @@ __all__ = (
     "RemoveUserVerification",
     "ReopenForumTopic",
     "ReopenGeneralForumTopic",
+    "ReplaceManagedBotToken",
     "ReplaceStickerInSet",
     "RepostStory",
     "Request",
@@ -267,9 +289,11 @@ __all__ = (
     "RestrictChatMember",
     "RevokeChatInviteLink",
     "SavePreparedInlineMessage",
+    "SavePreparedKeyboardButton",
     "SendAnimation",
     "SendAudio",
     "SendChatAction",
+    "SendChatJoinRequestWebApp",
     "SendChecklist",
     "SendContact",
     "SendDice",
@@ -277,6 +301,7 @@ __all__ = (
     "SendGame",
     "SendGift",
     "SendInvoice",
+    "SendLivePhoto",
     "SendLocation",
     "SendMediaGroup",
     "SendMessage",
@@ -284,6 +309,8 @@ __all__ = (
     "SendPaidMedia",
     "SendPhoto",
     "SendPoll",
+    "SendRichMessage",
+    "SendRichMessageDraft",
     "SendSticker",
     "SendVenue",
     "SendVideo",
@@ -304,6 +331,7 @@ __all__ = (
     "SetChatTitle",
     "SetCustomEmojiStickerSetThumbnail",
     "SetGameScore",
+    "SetManagedBotAccessSettings",
     "SetMessageReaction",
     "SetMyCommands",
     "SetMyDefaultAdministratorRights",

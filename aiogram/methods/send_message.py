@@ -28,7 +28,7 @@ class SendMessage(TelegramMethod[Message]):
     __api_method__ = "sendMessage"
 
     chat_id: ChatIdUnion
-    """Unique identifier for the target chat or username of the target channel (in the format :code:`@channelusername`)"""
+    """Unique identifier for the target chat or username of the target bot, supergroup or channel in the format :code:`@username`"""
     text: str
     """Text of the message to be sent, 1-4096 characters after entities parsing"""
     business_connection_id: str | None = None
@@ -38,13 +38,13 @@ class SendMessage(TelegramMethod[Message]):
     direct_messages_topic_id: int | None = None
     """Identifier of the direct messages topic to which the message will be sent; required if the message is sent to a direct messages chat"""
     parse_mode: str | Default | None = Default("parse_mode")
-    """Mode for parsing entities in the message text. See `formatting options <https://core.telegram.org/bots/api#formatting-options>`_ for more details."""
+    """Mode for parsing entities in the message text. See `formatting options <https://core.telegram.org/bots/api#formatting-options>`_ for more details"""
     entities: list[MessageEntity] | None = None
     """A JSON-serialized list of special entities that appear in message text, which can be specified instead of *parse_mode*"""
     link_preview_options: LinkPreviewOptions | Default | None = Default("link_preview")
     """Link preview generation options for the message"""
     disable_notification: bool | None = None
-    """Sends the message `silently <https://telegram.org/blog/channels-2-0#silent-messages>`_. Users will receive a notification with no sound."""
+    """Sends the message `silently <https://telegram.org/blog/channels-2-0#silent-messages>`_. Users will receive a notification with no sound"""
     protect_content: bool | Default | None = Default("protect_content")
     """Protects the contents of the sent message from forwarding and saving"""
     allow_paid_broadcast: bool | None = None
@@ -52,7 +52,7 @@ class SendMessage(TelegramMethod[Message]):
     message_effect_id: str | None = None
     """Unique identifier of the message effect to be added to the message; for private chats only"""
     suggested_post_parameters: SuggestedPostParameters | None = None
-    """A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined."""
+    """A JSON-serialized object containing the parameters of the suggested post to send; for direct messages chats only. If the message is sent as a reply to another suggested post, then that suggested post is automatically declined"""
     reply_parameters: ReplyParameters | None = None
     """Description of the message to reply to"""
     reply_markup: ReplyMarkupUnion | None = None

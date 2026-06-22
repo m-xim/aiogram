@@ -17,13 +17,13 @@ class PromoteChatMember(TelegramMethod[bool]):
     __api_method__ = "promoteChatMember"
 
     chat_id: ChatIdUnion
-    """Unique identifier for the target chat or username of the target channel (in the format :code:`@channelusername`)"""
+    """Unique identifier for the target chat or username of the target channel in the format :code:`@username`"""
     user_id: int
     """Unique identifier of the target user"""
     is_anonymous: bool | None = None
     """Pass :code:`True` if the administrator's presence in the chat is hidden"""
     can_manage_chat: bool | None = None
-    """Pass :code:`True` if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege."""
+    """Pass :code:`True` if the administrator can access the chat event log, get boost list, see hidden supergroup and channel members, report spam messages, ignore slow mode, and send messages to the chat without paying Telegram Stars. Implied by any other administrator privilege"""
     can_delete_messages: bool | None = None
     """Pass :code:`True` if the administrator can delete messages of other users"""
     can_manage_video_chats: bool | None = None

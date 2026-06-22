@@ -24,7 +24,7 @@ class ChatMemberRestricted(ChatMember):
     is_member: bool
     """:code:`True`, if the user is a member of the chat at the moment of the request"""
     can_send_messages: bool
-    """:code:`True`, if the user is allowed to send text messages, contacts, giveaways, giveaway winners, invoices, locations and venues"""
+    """:code:`True`, if the user is allowed to send text messages, rich messages, contacts, giveaways, giveaway winners, invoices, locations and venues"""
     can_send_audios: bool
     """:code:`True`, if the user is allowed to send audios"""
     can_send_documents: bool
@@ -43,6 +43,8 @@ class ChatMemberRestricted(ChatMember):
     """:code:`True`, if the user is allowed to send animations, games, stickers and use inline bots"""
     can_add_web_page_previews: bool
     """:code:`True`, if the user is allowed to add web page previews to their messages"""
+    can_react_to_messages: bool
+    """:code:`True`, if the user is allowed to react to messages"""
     can_edit_tag: bool
     """:code:`True`, if the user is allowed to edit their own tag"""
     can_change_info: bool
@@ -78,6 +80,7 @@ class ChatMemberRestricted(ChatMember):
             can_send_polls: bool,
             can_send_other_messages: bool,
             can_add_web_page_previews: bool,
+            can_react_to_messages: bool,
             can_edit_tag: bool,
             can_change_info: bool,
             can_invite_users: bool,
@@ -105,6 +108,7 @@ class ChatMemberRestricted(ChatMember):
                 can_send_polls=can_send_polls,
                 can_send_other_messages=can_send_other_messages,
                 can_add_web_page_previews=can_add_web_page_previews,
+                can_react_to_messages=can_react_to_messages,
                 can_edit_tag=can_edit_tag,
                 can_change_info=can_change_info,
                 can_invite_users=can_invite_users,

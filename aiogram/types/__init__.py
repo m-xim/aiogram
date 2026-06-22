@@ -338,6 +338,7 @@ __all__ = (
     "BackgroundTypeUnion",
     "BackgroundTypeWallpaper",
     "Birthdate",
+    "BotAccessSettings",
     "BotCommand",
     "BotCommandScope",
     "BotCommandScopeAllChatAdministrators",
@@ -469,21 +470,33 @@ __all__ = (
     "InputMediaAnimation",
     "InputMediaAudio",
     "InputMediaDocument",
+    "InputMediaLink",
+    "InputMediaLivePhoto",
+    "InputMediaLocation",
     "InputMediaPhoto",
+    "InputMediaSticker",
     "InputMediaUnion",
+    "InputMediaVenue",
     "InputMediaVideo",
     "InputMessageContent",
     "InputMessageContentUnion",
     "InputPaidMedia",
+    "InputPaidMediaLivePhoto",
     "InputPaidMediaPhoto",
     "InputPaidMediaUnion",
     "InputPaidMediaVideo",
+    "InputPollMedia",
+    "InputPollMediaUnion",
     "InputPollOption",
+    "InputPollOptionMedia",
+    "InputPollOptionMediaUnion",
     "InputPollOptionUnion",
     "InputProfilePhoto",
     "InputProfilePhotoAnimated",
     "InputProfilePhotoStatic",
     "InputProfilePhotoUnion",
+    "InputRichMessage",
+    "InputRichMessageContent",
     "InputSticker",
     "InputStoryContent",
     "InputStoryContentPhoto",
@@ -495,13 +508,18 @@ __all__ = (
     "KeyboardButton",
     "KeyboardButtonPollType",
     "KeyboardButtonRequestChat",
+    "KeyboardButtonRequestManagedBot",
     "KeyboardButtonRequestUser",
     "KeyboardButtonRequestUsers",
     "LabeledPrice",
+    "Link",
     "LinkPreviewOptions",
+    "LivePhoto",
     "Location",
     "LocationAddress",
     "LoginUrl",
+    "ManagedBotCreated",
+    "ManagedBotUpdated",
     "MaskPosition",
     "MaybeInaccessibleMessage",
     "MaybeInaccessibleMessageUnion",
@@ -531,6 +549,7 @@ __all__ = (
     "OwnedGifts",
     "PaidMedia",
     "PaidMediaInfo",
+    "PaidMediaLivePhoto",
     "PaidMediaPhoto",
     "PaidMediaPreview",
     "PaidMediaPurchased",
@@ -553,9 +572,13 @@ __all__ = (
     "PhotoSize",
     "Poll",
     "PollAnswer",
+    "PollMedia",
     "PollOption",
+    "PollOptionAdded",
+    "PollOptionDeleted",
     "PreCheckoutQuery",
     "PreparedInlineMessage",
+    "PreparedKeyboardButton",
     "ProximityAlertTriggered",
     "ReactionCount",
     "ReactionType",
@@ -576,6 +599,61 @@ __all__ = (
     "RevenueWithdrawalStatePending",
     "RevenueWithdrawalStateSucceeded",
     "RevenueWithdrawalStateUnion",
+    "RichBlock",
+    "RichBlockAnchor",
+    "RichBlockAnimation",
+    "RichBlockAudio",
+    "RichBlockBlockQuotation",
+    "RichBlockCaption",
+    "RichBlockCollage",
+    "RichBlockDetails",
+    "RichBlockDivider",
+    "RichBlockFooter",
+    "RichBlockList",
+    "RichBlockListItem",
+    "RichBlockMap",
+    "RichBlockMathematicalExpression",
+    "RichBlockParagraph",
+    "RichBlockPhoto",
+    "RichBlockPreformatted",
+    "RichBlockPullQuotation",
+    "RichBlockSectionHeading",
+    "RichBlockSlideshow",
+    "RichBlockTable",
+    "RichBlockTableCell",
+    "RichBlockThinking",
+    "RichBlockUnion",
+    "RichBlockVideo",
+    "RichBlockVoiceNote",
+    "RichMessage",
+    "RichText",
+    "RichTextAnchor",
+    "RichTextAnchorLink",
+    "RichTextBankCardNumber",
+    "RichTextBold",
+    "RichTextBotCommand",
+    "RichTextCashtag",
+    "RichTextCode",
+    "RichTextCustomEmoji",
+    "RichTextDateTime",
+    "RichTextEmailAddress",
+    "RichTextHashtag",
+    "RichTextItalic",
+    "RichTextMarked",
+    "RichTextMathematicalExpression",
+    "RichTextMention",
+    "RichTextPhoneNumber",
+    "RichTextReference",
+    "RichTextReferenceLink",
+    "RichTextSpoiler",
+    "RichTextStrikethrough",
+    "RichTextSubscript",
+    "RichTextSuperscript",
+    "RichTextTextMention",
+    "RichTextUnderline",
+    "RichTextUnion",
+    "RichTextUrl",
+    "SentGuestMessage",
     "SentWebAppMessage",
     "SharedUser",
     "ShippingAddress",
@@ -650,8 +728,86 @@ __all__ = (
 )
 
 from ..client.default import Default as _Default
+from .bot_access_settings import BotAccessSettings
 from .chat_owner_changed import ChatOwnerChanged
 from .chat_owner_left import ChatOwnerLeft
+from .input_media_link import InputMediaLink
+from .input_media_live_photo import InputMediaLivePhoto
+from .input_media_location import InputMediaLocation
+from .input_media_sticker import InputMediaSticker
+from .input_media_venue import InputMediaVenue
+from .input_paid_media_live_photo import InputPaidMediaLivePhoto
+from .input_poll_media import InputPollMedia
+from .input_poll_media_union import InputPollMediaUnion
+from .input_poll_option_media import InputPollOptionMedia
+from .input_poll_option_media_union import InputPollOptionMediaUnion
+from .input_rich_message import InputRichMessage
+from .input_rich_message_content import InputRichMessageContent
+from .keyboard_button_request_managed_bot import KeyboardButtonRequestManagedBot
+from .link import Link
+from .live_photo import LivePhoto
+from .managed_bot_created import ManagedBotCreated
+from .managed_bot_updated import ManagedBotUpdated
+from .paid_media_live_photo import PaidMediaLivePhoto
+from .poll_media import PollMedia
+from .poll_option_added import PollOptionAdded
+from .poll_option_deleted import PollOptionDeleted
+from .prepared_keyboard_button import PreparedKeyboardButton
+from .rich_block import RichBlock
+from .rich_block_anchor import RichBlockAnchor
+from .rich_block_animation import RichBlockAnimation
+from .rich_block_audio import RichBlockAudio
+from .rich_block_block_quotation import RichBlockBlockQuotation
+from .rich_block_caption import RichBlockCaption
+from .rich_block_collage import RichBlockCollage
+from .rich_block_details import RichBlockDetails
+from .rich_block_divider import RichBlockDivider
+from .rich_block_footer import RichBlockFooter
+from .rich_block_list import RichBlockList
+from .rich_block_list_item import RichBlockListItem
+from .rich_block_map import RichBlockMap
+from .rich_block_mathematical_expression import RichBlockMathematicalExpression
+from .rich_block_paragraph import RichBlockParagraph
+from .rich_block_photo import RichBlockPhoto
+from .rich_block_preformatted import RichBlockPreformatted
+from .rich_block_pull_quotation import RichBlockPullQuotation
+from .rich_block_section_heading import RichBlockSectionHeading
+from .rich_block_slideshow import RichBlockSlideshow
+from .rich_block_table import RichBlockTable
+from .rich_block_table_cell import RichBlockTableCell
+from .rich_block_thinking import RichBlockThinking
+from .rich_block_union import RichBlockUnion
+from .rich_block_video import RichBlockVideo
+from .rich_block_voice_note import RichBlockVoiceNote
+from .rich_message import RichMessage
+from .rich_text import RichText
+from .rich_text_anchor import RichTextAnchor
+from .rich_text_anchor_link import RichTextAnchorLink
+from .rich_text_bank_card_number import RichTextBankCardNumber
+from .rich_text_bold import RichTextBold
+from .rich_text_bot_command import RichTextBotCommand
+from .rich_text_cashtag import RichTextCashtag
+from .rich_text_code import RichTextCode
+from .rich_text_custom_emoji import RichTextCustomEmoji
+from .rich_text_date_time import RichTextDateTime
+from .rich_text_email_address import RichTextEmailAddress
+from .rich_text_hashtag import RichTextHashtag
+from .rich_text_italic import RichTextItalic
+from .rich_text_marked import RichTextMarked
+from .rich_text_mathematical_expression import RichTextMathematicalExpression
+from .rich_text_mention import RichTextMention
+from .rich_text_phone_number import RichTextPhoneNumber
+from .rich_text_reference import RichTextReference
+from .rich_text_reference_link import RichTextReferenceLink
+from .rich_text_spoiler import RichTextSpoiler
+from .rich_text_strikethrough import RichTextStrikethrough
+from .rich_text_subscript import RichTextSubscript
+from .rich_text_superscript import RichTextSuperscript
+from .rich_text_text_mention import RichTextTextMention
+from .rich_text_underline import RichTextUnderline
+from .rich_text_union import RichTextUnion
+from .rich_text_url import RichTextUrl
+from .sent_guest_message import SentGuestMessage
 from .user_profile_audios import UserProfileAudios
 from .video_quality import VideoQuality
 
